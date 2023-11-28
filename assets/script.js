@@ -83,7 +83,6 @@ function searchApi(city, APIKey) {
     var longitude = "";
     var latitude = "";
     
-    // console.log(APIKey)
     fetch(queryURL)
     .then(function (response) {
         console.log(response)
@@ -111,7 +110,6 @@ function searchForecastAPI(longitude, latitude, currentWeatherResp) {
     var forecastQueryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey + "&units=imperial";
     var fiveDayForecasts = [];
 
-    // console.log(APIKey)
     fetch(forecastQueryURL)
         .then(function (response) {
             if (!response.ok) {
@@ -156,7 +154,6 @@ function getUserInput() {
 
       // add a click event listener to each button
     searchHistoryItem.addEventListener('click', searchApi(retrievedUserInput, APIKey))
-    // console.log(APIKey)
 
         // Define the action to perform when the button is clicked
         console.log('Button clicked: ' + retrievedUserInput);

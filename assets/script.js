@@ -14,7 +14,7 @@ function printResults(currentWeather, fiveDayForecasts) {
     var date = new Date();
 
     var options = { 
-        year: 'numeric', 
+        year: 'numeric',
         month: '2-digit', 
         day: '2-digit' 
     };
@@ -48,6 +48,7 @@ function printResults(currentWeather, fiveDayForecasts) {
 
         var resultCard = document.createElement('div');
         resultCard.classList.add('test-outer-div', 'border', 'border-primary')
+        // console.log(resultCard)
 
         var resultBody = document.createElement('div');
         resultBody.classList.add('test-inner-div')
@@ -82,16 +83,17 @@ function searchApi(city, APIKey) {
     var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
     var longitude = "";
     var latitude = "";
+
+    searchInput.value = '';
     
     fetch(queryURL)
-    .then(function (response) {
-        console.log(response)
-        if (!response.ok) {
-            throw Error('response is false');
-        }
-        return response.json();
-    })
-
+        .then(function (response) {
+            // console.log(response)
+            if (!response.ok) {
+                throw Error('response is false');
+            }
+            return response.json();
+        })
         .then(function (locRes) {
             if (!locRes) {
                 console.log('No results found');
@@ -106,14 +108,14 @@ function searchApi(city, APIKey) {
         })
 }
 
-function searchForecastAPI(longitude, latitude, currentWeatherResp) {
+async function searchForecastAPI(longitude, latitude, currentWeatherResp) {
     var forecastQueryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey + "&units=imperial";
     var fiveDayForecasts = [];
 
-    fetch(forecastQueryURL)
+    await fetch(forecastQueryURL)
         .then(function (response) {
             if (!response.ok) {
-                throw response.json();
+                throw new Error(response.statusText);
             }
             return response.json();
         })
@@ -122,13 +124,13 @@ function searchForecastAPI(longitude, latitude, currentWeatherResp) {
                 var formattedTime = item.dt_txt.slice(11)
 
                 if (formattedTime === '12:00:00') {
-                    fiveDayForecasts.push(item)
+                fiveDayForecasts.push(item)
                 }
             })
-            return fiveDayForecasts
-        })
-
-        printResults(currentWeatherResp, fiveDayForecasts)
+            return fiveDayForecasts;
+        })  
+    console.log(currentWeatherContent, fiveDayForecasts)
+    printResults(currentWeatherResp, fiveDayForecasts)
 }
 
 //setting search history to localStorage

@@ -19,12 +19,12 @@
     href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
     rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="assets/style.css" />
     <title>Weather Dashboard</title>
 </head>
 
 
-<body class="flex-column min-100-vh">
+<body class="flex-column min-100-vh" id="body">
     <div class="jumbotron bg-dark text-white text-center">
         <div class="container">
             <h1 class="display-1 ">Weather Dashboard</h1>
@@ -36,12 +36,11 @@
             <div class='row'>
                 <div class="col-12 col-md-4 col-xl-3">
                     <div class="card">
-                        Search for city and input
-                        <h3 class="card-header text-uppercase">Search for city: </h3>
+                    <h3 class="card-header">Search for City: </h3>
                         <form id="user-form" class="card-body">
-                            <label class="form-label"></label>
-                            <input placeholder="City" id="search-city" type="text" autofocus="true"
-                            class="form-input" />
+                            <label class="form-label">
+                                <input placeholder="City" id="search-city" type="text" autofocus="true"
+                                class="form-input" /></label>
                             <br>
                             <br>
                             <button class="btn btn-outline-secondary custom-button" type="button" id="search-button">
@@ -58,7 +57,7 @@
                 <!--current weather-->
                 <div class="container  col-6 .col-md-4 my-5">
                     <div class="row">
-                        <div class="col-12 col-md-4 col-xl-9">
+                        <div class="row col-12 col-md-4 col-xl-9">
                             <h2 class='current-city-header'></h2>
                                 <div id="current-weather-container" class='current-list-group'></div>
                         </div>
@@ -76,10 +75,6 @@
         <div class="container">
             <div class="card">
                 <ul class="list-group history" id="history">
-                    <li class="list-group-item">Denver</li>
-                    <li class="list-group-item">Lafayette</li>
-                    <li class="list-group-item">Chicago</li>
-                    <li class="list-group-item">San Fransico</li>
                 </ul>
             </div>
         </div>

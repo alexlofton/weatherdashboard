@@ -78,17 +78,17 @@ function printResults(currentWeather, fiveDayForecasts) {
     })
 }
 
-async function searchApi(city, APIKey) {
+function searchApi(city, APIKey) {
     var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
     var longitude = "";
     var latitude = "";
     
     // console.log(APIKey)
-    await fetch(queryURL)
+    fetch(queryURL)
     .then(function (response) {
         console.log(response)
         if (!response.ok) {
-            throw response.json();
+            throw Error('response is false');
         }
         return response.json();
     })
@@ -107,12 +107,12 @@ async function searchApi(city, APIKey) {
         })
 }
 
-async function searchForecastAPI(longitude, latitude, currentWeatherResp) {
+function searchForecastAPI(longitude, latitude, currentWeatherResp) {
     var forecastQueryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey + "&units=imperial";
     var fiveDayForecasts = [];
 
     // console.log(APIKey)
-    await fetch(forecastQueryURL)
+    fetch(forecastQueryURL)
         .then(function (response) {
             if (!response.ok) {
                 throw response.json();
@@ -155,7 +155,7 @@ function getUserInput() {
     searchHistory.append(searchHistoryItem);
 
       // add a click event listener to each button
-    searchHistoryItem.addEventListener('click', searchApi(retrievedUserInput))
+    searchHistoryItem.addEventListener('click', searchApi(retrievedUserInput, APIKey))
     // console.log(APIKey)
 
         // Define the action to perform when the button is clicked

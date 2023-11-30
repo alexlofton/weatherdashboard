@@ -85,12 +85,13 @@ function searchApi(city, APIKey) {
     var latitude = "";
 
     searchInput.value = '';
+    console.log(city)
     
     fetch(queryURL)
         .then(function (response) {
             // console.log(response)
             if (!response.ok) {
-                throw Error('response is false');
+                throw Error('Please enter a valid city');
             }
             return response.json();
         })
@@ -135,19 +136,24 @@ async function searchForecastAPI(longitude, latitude, currentWeatherResp) {
 
 //setting search history to localStorage
 function setLocalStorage(city) {
-    localStorage.setItem(city, city);
+    console.log(city)
+    localStorage.setItem(city, city)
 
     var searchHistoryItem = document.createElement('button')
     searchHistoryItem.textContent = city;
     searchHistory.append(searchHistoryItem);
 }
-var searchHistoryArray = [];
+//var searchHistoryArray = [];
+
 function getUserInput() {
-    // var storageKeys = Object.keys(localStorage);
+    var storageKeys = Object.keys(localStorage);
+    console.log(storageKeys);
+    //console.log(searchHistoryArray);
 
-    for (var i = 0; i < searchHistoryArray.length; i++) {
+    for (var i = 0; i < storageKeys.length; i++) {
 
-    var key = searchHistoryArray[i];
+    var key = storageKeys[i];
+    //console.log(key)
     var retrievedUserInput = localStorage.getItem(key);
     // localStorage.clear(key)
     
@@ -161,30 +167,28 @@ function getUserInput() {
         // Define the action to perform when the button is clicked
         console.log('Button clicked: ' + retrievedUserInput);
     };
-    }
+}
 
 
 function handleSearchFormSubmit(event) {
     event.preventDefault();
     
     var city = searchInput.value;
-    if(searchHistoryArray.indexOf(city) !== -1) {
-        return;
-    }
-    searchHistoryArray.push(city);
+//    if(searchHistoryArray.indexOf(city) !== -1) {
+//        return;
+//    }
+//    searchHistoryArray.push(city);
     if (!city) {
         console.error('Please enter valid city');
-        return;
+        //return;
     }
-    
-    // setLocalStorage(city);
-    localStorage.setItem('search-history', JSON.stringify(searchHistoryArray));
+    console.log(city)
+    setLocalStorage(city);
+    //localStorage.setItem('city', JSON.stringify(searchHistoryArray));
     // localStorage.clear();
     searchApi(city, APIKey);
 }
 
-document.querySelector('#body').onload = function(){
-    getUserInput();
-};
+searchBtn.addEventListener('click', handleSearchFormSubmit);
 
-searchForm.addEventListener('submit', handleSearchFormSubmit);
+document.querySelector('body').onload = getUserInput()

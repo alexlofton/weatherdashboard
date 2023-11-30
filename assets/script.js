@@ -141,14 +141,15 @@ function setLocalStorage(city) {
     searchHistoryItem.textContent = city;
     searchHistory.append(searchHistoryItem);
 }
-
+var searchHistoryArray = [];
 function getUserInput() {
-    var storageKeys = Object.keys(localStorage);
+    // var storageKeys = Object.keys(localStorage);
 
-    for (var i = 0; i < storageKeys.length; i++) {
+    for (var i = 0; i < searchHistoryArray.length; i++) {
 
-    var key = storageKeys[i];
+    var key = searchHistoryArray[i];
     var retrievedUserInput = localStorage.getItem(key);
+    // localStorage.clear(key)
     
     var searchHistoryItem = document.createElement('button');
     searchHistoryItem.textContent = retrievedUserInput;
@@ -167,13 +168,18 @@ function handleSearchFormSubmit(event) {
     event.preventDefault();
     
     var city = searchInput.value;
-    
+    if(searchHistoryArray.indexOf(city) !== -1) {
+        return;
+    }
+    searchHistoryArray.push(city);
     if (!city) {
         console.error('Please enter valid city');
         return;
     }
     
-    setLocalStorage(city);
+    // setLocalStorage(city);
+    localStorage.setItem('search-history', JSON.stringify(searchHistoryArray));
+    // localStorage.clear();
     searchApi(city, APIKey);
 }
 

@@ -33,11 +33,11 @@ function printResults(currentWeather, fiveDayForecasts) {
         currentForecastIcon.setAttribute("src", `http://openweathermap.org/img/w/${currentWeather.weather[0].icon}.png`);
         currentCity.append(currentForecastIcon);
 
-        currentWeatherContent.innerHTML += '<p><strong>Temp:</strong> ' + Math.round(currentWeather.main.temp) + 'F' + '</p>'
+        currentWeatherContent.innerHTML += '<p><strong>Temp: </strong> ' + Math.round(currentWeather.main.temp) + '°F' + '</p>'
 
-        currentWeatherContent.innerHTML += '<p><strong>Feels Like:</strong> ' + Math.round(currentWeather.main.feels_like) + 'F' + '</p>'
+        currentWeatherContent.innerHTML += '<p><strong>Feels Like: </strong> ' + Math.round(currentWeather.main.feels_like) + '°F' + '</p>'
 
-        currentWeatherContent.innerHTML += '<p><strong>Humidity:</strong> ' + currentWeather.main.humidity + '%' + '</p>'
+        currentWeatherContent.innerHTML += '<p><strong>Humidity: </strong> ' + currentWeather.main.humidity + '%' + '</p>'
     }
 
     //five day forecast
@@ -48,7 +48,6 @@ function printResults(currentWeather, fiveDayForecasts) {
 
         var resultCard = document.createElement('div');
         resultCard.classList.add('test-outer-div', 'border', 'border-primary')
-        // console.log(resultCard)
 
         var resultBody = document.createElement('div');
         resultBody.classList.add('test-inner-div')
@@ -89,7 +88,6 @@ function searchApi(city, APIKey) {
     
     fetch(queryURL)
         .then(function (response) {
-            // console.log(response)
             if (!response.ok) {
                 throw Error('Please enter a valid city');
             }
@@ -143,19 +141,15 @@ function setLocalStorage(city) {
     searchHistoryItem.textContent = city;
     searchHistory.append(searchHistoryItem);
 }
-//var searchHistoryArray = [];
 
 function getUserInput() {
     var storageKeys = Object.keys(localStorage);
     console.log(storageKeys);
-    //console.log(searchHistoryArray);
 
     for (var i = 0; i < storageKeys.length; i++) {
 
     var key = storageKeys[i];
-    //console.log(key)
     var retrievedUserInput = localStorage.getItem(key);
-    // localStorage.clear(key)
     
     var searchHistoryItem = document.createElement('button');
     searchHistoryItem.textContent = retrievedUserInput;
@@ -174,21 +168,13 @@ function handleSearchFormSubmit(event) {
     event.preventDefault();
     
     var city = searchInput.value;
-//    if(searchHistoryArray.indexOf(city) !== -1) {
-//        return;
-//    }
-//    searchHistoryArray.push(city);
+
     if (!city) {
         console.error('Please enter valid city');
-        //return;
     }
-    console.log(city)
     setLocalStorage(city);
-    //localStorage.setItem('city', JSON.stringify(searchHistoryArray));
-    // localStorage.clear();
     searchApi(city, APIKey);
 }
 
 searchBtn.addEventListener('click', handleSearchFormSubmit);
-
-document.querySelector('body').onload = getUserInput()
+document.querySelector('#body').onload = getUserInput()

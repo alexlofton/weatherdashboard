@@ -25,7 +25,7 @@ function printResults(currentWeather, fiveDayForecasts) {
     if (currentWeather.main) {
         currentCity.textContent = currentWeather.name;
         var currentForecastIcon = document.createElement('img');
-        currentForecastIcon.setAttribute("src", `http://openweathermap.org/img/w/${currentWeather.weather[0].icon}.png`);
+        currentForecastIcon.setAttribute("src", `https://openweathermap.org/img/w/${currentWeather.weather[0].icon}.png`);
         currentCity.append(currentForecastIcon);
 
         var currentDateEl = document.createElement('h4');
@@ -58,7 +58,7 @@ function printResults(currentWeather, fiveDayForecasts) {
         resultBody.append(dateEl);
 
         var forecastIcon = document.createElement('img');
-        forecastIcon.setAttribute("src", `http://openweathermap.org/img/w/${forecast.weather[0].icon}.png`);
+        forecastIcon.setAttribute("src", `https://openweathermap.org/img/w/${forecast.weather[0].icon}.png`);
         resultBody.append(forecastIcon);
 
         var maxTemp = document.createElement('h4');
@@ -78,7 +78,7 @@ function printResults(currentWeather, fiveDayForecasts) {
 }
 
 function searchApi(city, APIKey) {
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
     var longitude = "";
     var latitude = "";
 
@@ -107,7 +107,7 @@ function searchApi(city, APIKey) {
 }
 
 async function searchForecastAPI(longitude, latitude, currentWeatherResp) {
-    var forecastQueryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey + "&units=imperial";
+    var forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey + "&units=imperial";
     var fiveDayForecasts = [];
 
     await fetch(forecastQueryURL)

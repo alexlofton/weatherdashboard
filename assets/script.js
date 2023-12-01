@@ -24,14 +24,13 @@ function printResults(currentWeather, fiveDayForecasts) {
     //current weather
     if (currentWeather.main) {
         currentCity.textContent = currentWeather.name;
-
-        var currentDateEl = document.createElement('h2');
-        currentDateEl.textContent = formattedCurrentDate;
-        currentCity.append(currentDateEl);
-
         var currentForecastIcon = document.createElement('img');
         currentForecastIcon.setAttribute("src", `http://openweathermap.org/img/w/${currentWeather.weather[0].icon}.png`);
         currentCity.append(currentForecastIcon);
+
+        var currentDateEl = document.createElement('h4');
+        currentDateEl.textContent = formattedCurrentDate;
+        currentCity.append(currentDateEl);
 
         currentWeatherContent.innerHTML += '<p><strong>Temp: </strong> ' + Math.round(currentWeather.main.temp) + '°F' + '</p>'
 
@@ -47,14 +46,14 @@ function printResults(currentWeather, fiveDayForecasts) {
         var formattedDate = date.toLocaleDateString('en-US', options);
 
         var resultCard = document.createElement('div');
-        resultCard.classList.add('test-outer-div', 'border', 'border-primary')
+        resultCard.classList.add('five-day-card', 'border', 'border-primary')
 
         var resultBody = document.createElement('div');
-        resultBody.classList.add('test-inner-div')
+        resultBody.classList.add('five-day-body')
         resultCard.append(resultBody);
 
-        var dateEl = document.createElement('h3');
-        dateEl.classList.add('h3-date')
+        var dateEl = document.createElement('h2');
+        dateEl.classList.add('h2-date')
         dateEl.textContent = formattedDate;
         resultBody.append(dateEl);
 
@@ -62,15 +61,15 @@ function printResults(currentWeather, fiveDayForecasts) {
         forecastIcon.setAttribute("src", `http://openweathermap.org/img/w/${forecast.weather[0].icon}.png`);
         resultBody.append(forecastIcon);
 
-        var maxTemp = document.createElement('h6');
+        var maxTemp = document.createElement('h4');
         maxTemp.innerHTML = '<strong>High: </strong>' + Math.round(forecast.main.temp_max) + 'F' + '<br/>';
         resultBody.append(maxTemp);
 
-        var minTemp = document.createElement('h6');
+        var minTemp = document.createElement('h4');
         minTemp.innerHTML = '<strong>Low: </strong>' + Math.round(forecast.main.temp_min) + 'F' + '<br/>';
         resultBody.append(minTemp);
 
-        var humidity = document.createElement('h6');
+        var humidity = document.createElement('h4');
         humidity.innerHTML = '<strong>Humidity: </strong>' + Math.round(forecast.main.humidity) + '%' + '<br/>';
         resultBody.append(humidity);
 
@@ -84,7 +83,7 @@ function searchApi(city, APIKey) {
     var latitude = "";
 
     searchInput.value = '';
-    console.log(city)
+
     
     fetch(queryURL)
         .then(function (response) {
@@ -128,13 +127,12 @@ async function searchForecastAPI(longitude, latitude, currentWeatherResp) {
             })
             return fiveDayForecasts;
         })  
-    console.log(currentWeatherContent, fiveDayForecasts)
+    // console.log(currentWeatherContent, fiveDayForecasts)
     printResults(currentWeatherResp, fiveDayForecasts)
 }
 
 //setting search history to localStorage
 function setLocalStorage(city) {
-    console.log(city)
     localStorage.setItem(city, city)
 
     var searchHistoryItem = document.createElement('button')
@@ -144,7 +142,6 @@ function setLocalStorage(city) {
 
 function getUserInput() {
     var storageKeys = Object.keys(localStorage);
-    console.log(storageKeys);
 
     for (var i = 0; i < storageKeys.length; i++) {
 

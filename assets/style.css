@@ -5,3 +5,34 @@ body {
 header {
     background-color: aliceblue;
 }
+
+#forecast-container {
+    background-color: #000000d0;
+    color: aliceblue;
+    border: groove;
+    display: flex;
+}
+
+.fit-content {
+    display: inline-block;
+}
+
+.h2-date {
+    border-bottom: groove;
+}
+
+.five-day-body {
+    border: groove;
+    padding: 5px;
+}
+
+#current-weather-card {
+    background-color: #000000d0;
+    color: aliceblue;
+    border: groove;
+    display: flex;
+}
+
+#current-weather-container {
+    display: inline-block;
+}

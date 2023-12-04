@@ -26,10 +26,7 @@ function printResults(currentWeather, fiveDayForecasts) {
         currentCity.innerHTML = " ";
         currentWeatherContent.innerHTML = " ";
         currentCity.textContent = currentWeather.name;
-        var currentForecastIcon = document.createElement('img');
-        currentForecastIcon.setAttribute("src", `https://openweathermap.org/img/w/${currentWeather.weather[0].icon}.png`);
-        currentCity.append(currentForecastIcon);
-
+        
         var currentDateEl = document.createElement('h4');
         currentDateEl.textContent = formattedCurrentDate;
         currentCity.append(currentDateEl);
@@ -64,11 +61,11 @@ function printResults(currentWeather, fiveDayForecasts) {
         resultBody.append(forecastIcon);
 
         var maxTemp = document.createElement('h4');
-        maxTemp.innerHTML = '<strong>High: </strong>' + Math.round(forecast.main.temp_max) + 'F' + '<br/>';
+        maxTemp.innerHTML = '<strong>High: </strong>' + Math.round(forecast.main.temp_max) + ' °F' + '<br/>';
         resultBody.append(maxTemp);
 
         var minTemp = document.createElement('h4');
-        minTemp.innerHTML = '<strong>Low: </strong>' + Math.round(forecast.main.temp_min) + 'F' + '<br/>';
+        minTemp.innerHTML = '<strong>Low: </strong>' + Math.round(forecast.main.temp_min) + ' °F' + '<br/>';
         resultBody.append(minTemp);
 
         var humidity = document.createElement('h4');

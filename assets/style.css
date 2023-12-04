@@ -6,11 +6,22 @@ header {
     background-color: aliceblue;
 }
 
-#forecast-container {
-    background-color: #000000d0;
+h1, h2 {
     color: aliceblue;
-    border: groove;
+}
+
+h3 {
+    color: ##00000071;
+}
+
+
+#forecast-container {
+    background-color: #00000071;
+    color: aliceblue;
+    border-left: groove;
+    border-right: groove;
     display: flex;
+    margin-left: auto;
 }
 
 .fit-content {
@@ -22,12 +33,13 @@ header {
 }
 
 .five-day-body {
-    border: groove;
-    padding: 5px;
+    border-left: groove;
+    border-right: groove;
+    padding: 15px;
 }
 
 #current-weather-card {
-    background-color: #000000d0;
+    background-color: #00000071;
     color: aliceblue;
     border: groove;
     display: flex;
@@ -35,4 +47,16 @@ header {
 
 #current-weather-container {
     display: inline-block;
+}
+
+#user-form {
+    border: 3px;
+    border-bottom: 0;
+    border-style: groove;
+    padding: 10px;
+
+}
+
+.current-city-header {
+    padding: 20px;
 }

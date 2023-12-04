@@ -23,6 +23,8 @@ function printResults(currentWeather, fiveDayForecasts) {
 
     //current weather
     if (currentWeather.main) {
+        currentCity.innerHTML = " ";
+        currentWeatherContent.innerHTML = " ";
         currentCity.textContent = currentWeather.name;
         var currentForecastIcon = document.createElement('img');
         currentForecastIcon.setAttribute("src", `https://openweathermap.org/img/w/${currentWeather.weather[0].icon}.png`);
@@ -38,7 +40,7 @@ function printResults(currentWeather, fiveDayForecasts) {
 
         currentWeatherContent.innerHTML += '<p><strong>Humidity: </strong> ' + currentWeather.main.humidity + '%' + '</p>'
     }
-
+    forecastContent.innerHTML = " "
     //five day forecast
     return fiveDayForecasts.forEach(function(forecast) {
         var date = new Date(forecast.dt_txt);
@@ -131,9 +133,12 @@ async function searchForecastAPI(longitude, latitude, currentWeatherResp) {
     printResults(currentWeatherResp, fiveDayForecasts)
 }
 
+var searchLocalHistory = JSON.parse(localStorage.getItem("history")) || []
 //setting search history to localStorage
 function setLocalStorage(city) {
-    localStorage.setItem(city, city)
+
+    searchLocalHistory.push(city)
+    localStorage.setItem("history", JSON.stringify(searchLocalHistory))
 
     var searchHistoryItem = document.createElement('button')
     searchHistoryItem.textContent = city;
@@ -141,19 +146,24 @@ function setLocalStorage(city) {
 }
 
 function getUserInput() {
-    var storageKeys = Object.keys(localStorage);
+    //var storageKeys = Object.keys(localStorage);
 
-    for (var i = 0; i < storageKeys.length; i++) {
+    for (var i = 0; i < searchLocalHistory.length; i++) {
 
-    var key = storageKeys[i];
-    var retrievedUserInput = localStorage.getItem(key);
-    
+    var key = searchLocalHistory[i];
+    //console.log(key)
+   
+    var retrievedUserInput = key;
+    console.log(retrievedUserInput)
     var searchHistoryItem = document.createElement('button');
     searchHistoryItem.textContent = retrievedUserInput;
+
+        // add a click event listener to each button
+    searchHistoryItem.addEventListener('click', searchApi(retrievedUserInput, APIKey))
+
     searchHistory.append(searchHistoryItem);
 
-      // add a click event listener to each button
-    searchHistoryItem.addEventListener('click', searchApi(retrievedUserInput, APIKey))
+  
 
         // Define the action to perform when the button is clicked
         console.log('Button clicked: ' + retrievedUserInput);
@@ -169,6 +179,7 @@ function handleSearchFormSubmit(event) {
     if (!city) {
         console.error('Please enter valid city');
     }
+    forecastContent.innerHTML = " "
     setLocalStorage(city);
     searchApi(city, APIKey);
 }

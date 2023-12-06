@@ -25,11 +25,14 @@ function printResults(currentWeather, fiveDayForecasts) {
     if (currentWeather.main) {
         currentCity.innerHTML = " ";
         currentWeatherContent.innerHTML = " ";
-        currentCity.textContent = currentWeather.name;
+
+        var cityName = document.createElement("h4")
+        cityName.textContent = currentWeather.name
+        //currentCity.textContent = currentWeather.name;
         
         var currentDateEl = document.createElement('h4');
         currentDateEl.textContent = formattedCurrentDate;
-        currentCity.append(currentDateEl);
+        currentCity.append(cityName, currentDateEl);
 
         currentWeatherContent.innerHTML += '<p><strong>Temp: </strong> ' + Math.round(currentWeather.main.temp) + '°F' + '</p>'
 
@@ -144,22 +147,24 @@ function setLocalStorage(city) {
 
 function getUserInput() {
     //var storageKeys = Object.keys(localStorage);
-
+    searchHistory.innerHTML = ""
     for (var i = 0; i < searchLocalHistory.length; i++) {
 
     var key = searchLocalHistory[i];
     //console.log(key)
    
     var retrievedUserInput = key;
-    console.log(retrievedUserInput)
+    //console.log(retrievedUserInput)
     var searchHistoryItem = document.createElement('button');
+    
     searchHistoryItem.textContent = retrievedUserInput;
-
+    searchHistoryItem.setAttribute("value", retrievedUserInput)
         // add a click event listener to each button
-    searchHistoryItem.addEventListener('click', searchApi(retrievedUserInput, APIKey))
+  
 
     searchHistory.append(searchHistoryItem);
-
+  
+    searchHistoryItem.onclick = searchApi(searchHistoryItem.value, APIKey)
   
 
         // Define the action to perform when the button is clicked
